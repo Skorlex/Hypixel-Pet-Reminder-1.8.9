@@ -23,4 +23,4 @@ plugins {
 }
 
 
-rootProject.name = "examplemod"
+rootProject.name = "-1.8.9-Hypixel-Pet-Reminder"
