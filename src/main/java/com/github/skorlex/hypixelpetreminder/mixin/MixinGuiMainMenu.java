@@ -1,4 +1,4 @@
-package com.github.skorlex.189hypixelpetreminder.mixin;
+package com.github.skorlex.hypixelpetreminder.mixin;
 
 import net.minecraft.client.gui.GuiMainMenu;
 import org.spongepowered.asm.mixin.Mixin;

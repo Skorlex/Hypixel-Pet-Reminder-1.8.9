@@ -1,4 +1,4 @@
-package com.github.skorlex.189hypixelpetreminder.init;
+package com.github.skorlex.hypixelpetreminder.init;
 
 import org.spongepowered.asm.lib.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
