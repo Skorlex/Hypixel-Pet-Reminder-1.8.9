@@ -16,12 +16,13 @@ public class PetEventHandler {
 
     @SubscribeEvent
     public void onChat(ClientChatReceivedEvent event) {
+        if (!PetConfig.enabled) return;
+
         String rawMessage = event.message.getUnformattedText();
 
         if (rawMessage.matches("^Your Lv \\d+ .+ earned [\\d,]+ EXP from the pet mission!$")) {
             long currentTime = System.currentTimeMillis();
 
-            // Debounce window: If another pet message fired less than 1.5 seconds ago, ignore this one
             if (currentTime - lastTriggerTime < 1500L) {
                 return;
             }
@@ -37,8 +38,8 @@ public class PetEventHandler {
 
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {
+        if (!PetConfig.enabled) return;
         if (event.phase != TickEvent.Phase.END || Minecraft.getMinecraft().thePlayer == null) return;
-
         if (PetConfig.targetTime == 0L) return;
 
         long currentTime = System.currentTimeMillis();
@@ -54,7 +55,7 @@ public class PetEventHandler {
     private void sendReminderMessage() {
         IChatComponent prefix = new ChatComponentText("§a§l[PetReminder] §eYour pet is ready for another mission! ");
 
-        IChatComponent cancelButton = new ChatComponentText("§c§l[CANCEL TIMER]");
+        IChatComponent cancelButton = new ChatComponentText("§c§l[CANCEL]");
         ChatStyle style = new ChatStyle()
                 .setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/pr cancel"))
                 .setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText("§eClick to stop reminders!")));

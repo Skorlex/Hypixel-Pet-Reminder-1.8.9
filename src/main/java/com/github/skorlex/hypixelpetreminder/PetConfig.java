@@ -6,6 +6,7 @@ import java.io.File;
 public class PetConfig {
     private static Configuration config;
     public static long targetTime = 0L;
+    public static boolean enabled = true;
 
     public static void init(File configFile) {
         config = new Configuration(configFile);
@@ -23,6 +24,8 @@ public class PetConfig {
             targetTime = 0L;
         }
 
+        enabled = config.get("General", "enabled", true).getBoolean();
+
         if (config.hasChanged()) {
             config.save();
         }
@@ -30,8 +33,13 @@ public class PetConfig {
 
     public static void saveTargetTime(long newTime) {
         targetTime = newTime;
-        // Save the massive timestamp number as a String to prevent data loss
         config.get("General", "targetTime", "0").set(String.valueOf(newTime));
+        config.save();
+    }
+
+    public static void setEnabled(boolean state) {
+        enabled = state;
+        config.get("General", "enabled", true).set(state);
         config.save();
     }
 }
